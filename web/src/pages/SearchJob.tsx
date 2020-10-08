@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(4),
       maxWidth: 900,
       height: '90vh',
+      [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(4),
+      },
     },
     bottomCardWrapper: {
       paddingTop: theme.spacing(2),
@@ -105,10 +108,10 @@ export const SearchJob: React.FC = props => {
 
       <Grid item style={{width: '100%'}}>
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <Card />
           </Grid>
-          <Grid item xs={9} style={{backgroundColor: colors.white}}>
+          <Grid item xs={12} lg={9} style={{backgroundColor: colors.white}}>
             <Grid container>{jobs.map(renderJobs)}</Grid>
           </Grid>
         </Grid>

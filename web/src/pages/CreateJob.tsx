@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 1200,
       backgroundColor: colors.offWhite,
       paddingBottom: theme.spacing(4),
+      [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(4),
+      },
     },
     title: {
       fontSize: theme.spacing(6),
