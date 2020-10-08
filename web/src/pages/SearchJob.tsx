@@ -3,7 +3,7 @@ import {Grid} from '@material-ui/core';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
 import {colors} from 'styles/colors';
-import {useAppDispatch, useAppState} from 'store';
+import {useAppState} from 'store';
 import {Card, Input} from 'components';
 import {FormValues} from './CreateJob';
 
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SearchJob: React.FC = props => {
   const classes = useStyles(props);
-  const setState = useAppDispatch();
-  const {jobs, ...state} = useAppState();
+
+  const {jobs} = useAppState();
 
   useEffect(() => {});
 

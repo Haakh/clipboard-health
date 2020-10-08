@@ -1,7 +1,6 @@
 import React from 'react';
 import {FormLabel, TextField} from '@material-ui/core';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import {colors} from 'styles/colors';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

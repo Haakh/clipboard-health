@@ -38,7 +38,7 @@ function App() {
       <Router history={history}>
         <Switch>
           <Layout>
-            {/* <PrivateRoute path={RoutePath.Listings} component={Listings} /> */}
+            <PrivateRoute path={'/test'} component={SearchJob} />
 
             <PublicRoute path={RoutePath.SearchJob} component={SearchJob} />
             <PublicRoute path={RoutePath.CreateJob} component={CreateJob} />
