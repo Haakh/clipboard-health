@@ -3,6 +3,9 @@ import {Grid} from '@material-ui/core';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
 import {colors} from 'styles/colors';
+import {useAppDispatch, useAppState} from 'store';
+import {Card, Input} from 'components';
+import {FormValues} from './CreateJob';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,7 +15,8 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexDirection: 'column',
       marginTop: theme.spacing(4),
-      maxWidth: 1200,
+      maxWidth: 900,
+      height: '90vh',
     },
     bottomCardWrapper: {
       paddingTop: theme.spacing(2),
@@ -61,17 +65,52 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SearchJob: React.FC = props => {
   const classes = useStyles(props);
+  const setState = useAppDispatch();
+  const {jobs, ...state} = useAppState();
 
   useEffect(() => {});
 
+  const renderJobs = (job: FormValues) => {
+    return (
+      <Grid
+        item
+        style={{
+          width: '100%',
+          paddingTop: 16,
+          paddingBottom: 16,
+          marginLeft: 16,
+          marginRight: 16,
+          borderBottom: '1px solid #F1F1F1',
+        }}>
+        <Grid container>
+          <Grid xs={8}>
+            <div style={{color: '#333333', fontSize: 17, fontWeight: 400}}>Hearing Screener Audiometric Technician</div>
+            <div style={{color: '#7C7C7C', fontSize: 13, fontWeight: 400}}>
+              Full Time | $29.08 - $36.24 an hour | Vancouver, BC
+            </div>
+          </Grid>
+          <Grid xs={4} style={{display: 'flex', justifyContent: 'flex-end', color: '#ABABAB', fontSize: 13}}>
+            Hello right
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
   return (
     <Grid container justify="center" alignItems="center" className={classes.root}>
-      <Grid item xs={12} md={10} lg={9}>
+      <Grid item style={{width: '100%', marginBottom: 16}}>
+        <Input fullWidth={true} name="Search" placeholder="eg. Register Nurse" />
+      </Grid>
+
+      <Grid item style={{width: '100%'}}>
         <Grid container>
-          <Grid item xs={12}></Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={12}></Grid>
+          <Grid item xs={3}>
+            <Card />
+          </Grid>
+          <Grid item xs={9} style={{backgroundColor: colors.white}}>
+            <Grid container>{jobs.map(renderJobs)}</Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

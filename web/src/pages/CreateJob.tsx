@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Grid, InputAdornment, Typography, CircularProgress} from '@material-ui/core';
+import {Grid, Typography, CircularProgress} from '@material-ui/core';
 
 import {Formik} from 'formik';
 
@@ -8,6 +8,9 @@ import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 import {colors} from 'styles/colors';
 import {Button, Input} from 'components';
 import {Autocomplete} from '@material-ui/lab';
+import {RoutePath} from 'types/routes';
+import {useHistory} from 'react-router-dom';
+import {useAppDispatch, useAppState} from 'store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(4),
       maxWidth: 1200,
       backgroundColor: colors.offWhite,
-      // border: '1px solid',
       paddingBottom: theme.spacing(4),
-    },
-    bottomCardWrapper: {
-      paddingTop: theme.spacing(2),
     },
     title: {
       fontSize: theme.spacing(6),
@@ -31,17 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(6),
       fontWeight: 400,
     },
-    listRightWrapper: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      [theme.breakpoints.down('sm')]: {
-        justifyContent: 'flex-start',
-      },
-    },
   }),
 );
 
-interface FormValues {
+export interface FormValues {
   jobTitle: string;
   description: string;
   salaryStart: string;
@@ -59,6 +51,9 @@ interface FormValues {
 
 export const CreateJob: React.FC = props => {
   const classes = useStyles(props);
+  const history = useHistory();
+  const setState = useAppDispatch();
+  const {jobs, ...state} = useAppState();
 
   const initialValues: FormValues = {
     jobTitle: '',
@@ -78,7 +73,12 @@ export const CreateJob: React.FC = props => {
 
   useEffect(() => {});
 
-  const onSubmit = (values: FormValues) => {};
+  const onSubmit = (values: FormValues) => {
+    const newJobs = [...jobs];
+    newJobs.push(values);
+    setState({...state, jobs: newJobs});
+    history.push(RoutePath.SearchJob);
+  };
 
   return (
     <Grid container justify="center" alignItems="center" className={classes.root}>

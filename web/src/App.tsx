@@ -4,7 +4,7 @@ import history from 'utils/history';
 
 import {RoutePath} from 'types/routes';
 import Layout from './Layout';
-// import {AppProvider} from './AppContext';
+import {AppProvider} from 'store';
 import {Route, Redirect} from 'react-router-dom';
 import {SearchJob, CreateJob} from 'pages/index';
 
@@ -34,20 +34,20 @@ const PublicRoute = ({component: Component, ...rest}: any) => {
 
 function App() {
   return (
-    // <AppProvider>
-    <Router history={history}>
-      <Switch>
-        <Layout>
-          {/* <PrivateRoute path={RoutePath.Listings} component={Listings} /> */}
+    <AppProvider>
+      <Router history={history}>
+        <Switch>
+          <Layout>
+            {/* <PrivateRoute path={RoutePath.Listings} component={Listings} /> */}
 
-          <PublicRoute path={RoutePath.SearchJob} component={SearchJob} />
-          <PublicRoute path={RoutePath.CreateJob} component={CreateJob} />
+            <PublicRoute path={RoutePath.SearchJob} component={SearchJob} />
+            <PublicRoute path={RoutePath.CreateJob} component={CreateJob} />
 
-          <PublicRoute path={RoutePath.Root} component={CreateJob} exact />
-        </Layout>
-      </Switch>
-    </Router>
-    // </AppProvider>
+            <PublicRoute path={RoutePath.Root} component={CreateJob} exact />
+          </Layout>
+        </Switch>
+      </Router>{' '}
+    </AppProvider>
   );
 }
 
