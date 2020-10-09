@@ -33,6 +33,15 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(6),
       fontWeight: 400,
     },
+    formButtons: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      [theme.breakpoints.down('md')]: {
+        justifyContent: 'flex-start',
+        marginTop: theme.spacing(5),
+      },
+    },
   }),
 );
 
@@ -387,11 +396,7 @@ export const CreateJob: React.FC = props => {
                         <Grid item xs={12} md={6} style={{display: 'flex', alignItems: 'center'}}>
                           <Typography style={{color: '#7C7C7C'}}>You currently have 4 active job listings</Typography>
                         </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          md={6}
-                          style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                        <Grid item xs={12} md={6} className={classes.formButtons}>
                           <Button variant="outlined" style={{width: 70, height: 35}}>
                             <Typography variant="h4">Cancel</Typography>
                           </Button>

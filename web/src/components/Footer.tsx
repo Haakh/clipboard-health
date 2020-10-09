@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     footerContainer: {
       justifyContent: 'space-between',
-      marginTop: theme.spacing(12),
+      marginTop: theme.spacing(1),
     },
   }),
 );
@@ -30,24 +30,24 @@ export const Footer: React.FC = props => {
     <Container maxWidth={false} className={classes.footer}>
       <Grid lg={9}>
         <Grid container direction="row" className={classes.footerContainer}>
-          <Grid item xs={6}>
-            <Grid style={{color: '#333333', fontWeight: 600, marginBottom: 14}}>About US</Grid>
+          <Grid item xs={12} md={6}>
+            <Grid style={{color: '#333333', marginTop: 40, fontWeight: 600, marginBottom: 14}}>About US</Grid>
             <Grid style={{color: '#7C7C7C'}}>
               We are a team of Nurses, Doctors, Technologists and Executives dedicated to help nurses find jobs that
               they love.
             </Grid>
             <Grid style={{color: '#7C7C7C'}}>All copyrights reserved @ 2017 - Clipboard Health</Grid>
           </Grid>
-          <Grid item xs={2} />
-          <Grid item xs={2}>
-            <Grid style={{color: '#333333', fontWeight: 600, marginBottom: 14}}>Site map</Grid>
+          <Grid item xs={12} md={2} />
+          <Grid item xs={12} md={2}>
+            <Grid style={{color: '#333333', marginTop: 40, fontWeight: 600, marginBottom: 14}}>Site map</Grid>
             <Grid style={{color: '#7C7C7C'}}>Nurses</Grid>
             <Grid style={{color: '#7C7C7C'}}>Employers</Grid>
             <Grid style={{color: '#7C7C7C'}}>Social networking</Grid>
             <Grid style={{color: '#7C7C7C'}}>Jobs</Grid>
           </Grid>
-          <Grid item xs={2}>
-            <Grid style={{color: '#333333', fontWeight: 600, marginBottom: 14}}>Privacy</Grid>
+          <Grid item xs={12} md={2}>
+            <Grid style={{color: '#333333', marginTop: 40, fontWeight: 600, marginBottom: 14}}>Privacy</Grid>
             <Grid style={{color: '#7C7C7C'}}>Terms of Use</Grid>
             <Grid style={{color: '#7C7C7C'}}>Privacy Policy</Grid>
           </Grid>
