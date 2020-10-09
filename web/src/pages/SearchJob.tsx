@@ -87,13 +87,13 @@ export const SearchJob: React.FC = props => {
         }}>
         <Grid container>
           <Grid xs={8}>
-            <div style={{color: '#333333', fontSize: 17, fontWeight: 400}}>Hearing Screener Audiometric Technician</div>
+            <div style={{color: '#333333', fontSize: 17, fontWeight: 400}}>{job.jobTitle}</div>
             <div style={{color: '#7C7C7C', fontSize: 13, fontWeight: 400}}>
-              Full Time | $29.08 - $36.24 an hour | Vancouver, BC
+              {`Full Time | $${job.salaryStart} - ${job.salaryEnd} an hour | ${job.location}`}
             </div>
           </Grid>
           <Grid xs={4} style={{display: 'flex', justifyContent: 'flex-end', color: '#ABABAB', fontSize: 13}}>
-            Hello right
+            5 days ago
           </Grid>
         </Grid>
       </Grid>

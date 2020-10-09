@@ -3,7 +3,7 @@ import {makeStyles, ThemeProvider, Theme} from '@material-ui/core/styles';
 import theme from './theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {Grid, createStyles} from '@material-ui/core';
-import {Header} from './components';
+import {Footer, Header} from './components';
 import {colors} from 'styles/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +33,8 @@ export default (props: Props) => {
       <Grid container justify="center" alignItems="center" className={classes.root}>
         {props.children}
       </Grid>
+
+      <Footer />
     </ThemeProvider>
   );
 };

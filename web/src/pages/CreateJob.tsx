@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {Grid, Typography, CircularProgress} from '@material-ui/core';
+import {Grid, Typography, CircularProgress, InputAdornment, Select, MenuItem, FormLabel} from '@material-ui/core';
 
 import {Formik} from 'formik';
 
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
 import {colors} from 'styles/colors';
-import {Button, Input} from 'components';
+import {BootstrapInput, Button, Input} from 'components';
 import {Autocomplete} from '@material-ui/lab';
 import {RoutePath} from 'types/routes';
 import {useHistory} from 'react-router-dom';
@@ -81,6 +81,7 @@ export const CreateJob: React.FC = props => {
     newJobs.push(values);
     setState({...state, jobs: newJobs});
     history.push(RoutePath.SearchJob);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -150,6 +151,10 @@ export const CreateJob: React.FC = props => {
                             onBlur={handleBlur}
                             helperText={errors.salaryStart && touched.salaryStart && 'Job Title Required'}
                             label="Salary Range"
+                            type="number"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                            }}
                           />
                         </Grid>
                         <Grid item xs={6} sm={6} md={3}>
@@ -162,33 +167,49 @@ export const CreateJob: React.FC = props => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             helperText={errors.salaryEnd && touched.salaryEnd && 'Job Title Required'}
+                            type="number"
+                            InputProps={{
+                              startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                            }}
                           />
                         </Grid>
                         <Grid item xs={6} sm={6} md={3}>
-                          <Input
-                            error={errors.jobForm && touched.jobForm}
-                            fullWidth={true}
-                            name="jobForm"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Forms
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="jobForm"
+                            id="jobForm"
                             value={values.jobForm}
-                            defaultValue={values.jobForm}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.jobForm && touched.jobForm && 'Job Title Required'}
                             label="Forms"
-                          />
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Hourly</MenuItem>
+                            <MenuItem value={20}>Weekly</MenuItem>
+                            <MenuItem value={30}>Monthly</MenuItem>
+                          </Select>
                         </Grid>
                         <Grid item xs={6} sm={6} md={3}>
-                          <Input
-                            error={errors.currency && touched.currency}
-                            fullWidth={true}
-                            name="currency"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Currency
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="currency"
+                            id="currency"
                             value={values.currency}
-                            defaultValue={values.currency}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.currency && touched.currency && 'Job Title Required'}
-                            label="Currency"
-                          />
+                            label="currency"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>USD</MenuItem>
+                            <MenuItem value={20}>INR</MenuItem>
+                            <MenuItem value={30}>Euro</MenuItem>
+                          </Select>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -211,43 +232,68 @@ export const CreateJob: React.FC = props => {
                     <Grid key="SHIFT" item style={{width: '100%'}}>
                       <Grid container spacing={2}>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.shiftHours && touched.shiftHours}
-                            fullWidth={true}
-                            name="shiftHours"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Shift hours
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="shiftHours"
+                            id="shiftHours"
                             value={values.shiftHours}
-                            defaultValue={values.shiftHours}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.shiftHours && touched.shiftHours && 'Job Title Required'}
-                            label="Shift hours"
-                          />
+                            label="shiftHours"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>AM</MenuItem>
+                            <MenuItem value={20}>PM</MenuItem>
+                            <MenuItem value={30}>Custom</MenuItem>
+                          </Select>
+                          {/* <Autocomplete
+                            id="combo-box-demo"
+                            options={['top100Films']}
+                            getOptionLabel={option => option}
+                            style={{width: 300}}
+                            renderInput={params => <Input {...params} label="Combo box" />}
+                          /> */}
                         </Grid>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.shiftSchedule && touched.shiftSchedule}
-                            fullWidth={true}
-                            name="shiftSchedule"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Shift schedule
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="shiftSchedule"
+                            id="shiftSchedule"
                             value={values.shiftSchedule}
-                            defaultValue={values.shiftSchedule}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.shiftSchedule && touched.shiftSchedule && 'Job Title Required'}
-                            label="Shift schedule"
-                          />
+                            label="shiftSchedule"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Schedule 1</MenuItem>
+                            <MenuItem value={20}>Schedule 2</MenuItem>
+                            <MenuItem value={30}>Schedule 3</MenuItem>
+                          </Select>
                         </Grid>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.jobType && touched.jobType}
-                            fullWidth={true}
-                            name="jobType"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Job Type
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="jobType"
+                            id="jobType"
                             value={values.jobType}
-                            defaultValue={values.jobType}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.jobType && touched.jobType && 'Job Title Required'}
-                            label="Job Type"
-                          />
+                            label="jobType"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Type 1</MenuItem>
+                            <MenuItem value={20}>Type 2</MenuItem>
+                            <MenuItem value={30}>Type 3</MenuItem>
+                          </Select>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -255,43 +301,61 @@ export const CreateJob: React.FC = props => {
                     <Grid key="PATIENT" item style={{width: '100%'}}>
                       <Grid container spacing={2}>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.ratio && touched.ratio}
-                            fullWidth={true}
-                            name="ratio"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Nurse Patient Ratio
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="ratio"
+                            id="ratio"
                             value={values.ratio}
-                            defaultValue={values.ratio}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.ratio && touched.ratio && 'Job Title Required'}
-                            label="Nurse Patient Ratio"
-                          />
+                            label="ratio"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Req 1</MenuItem>
+                            <MenuItem value={20}>Req 2</MenuItem>
+                            <MenuItem value={30}>Req 3</MenuItem>
+                          </Select>
                         </Grid>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.degreeRequirement && touched.degreeRequirement}
-                            fullWidth={true}
-                            name="degreeRequirement"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Degree Requirement
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="degreeRequirement"
+                            id="degreeRequirement"
                             value={values.degreeRequirement}
-                            defaultValue={values.degreeRequirement}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.degreeRequirement && touched.degreeRequirement && 'Job Title Required'}
-                            label="Degree Requirement"
-                          />
+                            label="degreeRequirement"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Req 1</MenuItem>
+                            <MenuItem value={20}>Req 2</MenuItem>
+                            <MenuItem value={30}>Req 3</MenuItem>
+                          </Select>
                         </Grid>
                         <Grid item xs={6} sm={6} md={4}>
-                          <Input
-                            error={errors.workExperience && touched.workExperience}
-                            fullWidth={true}
-                            name="workExperience"
+                          <div style={{marginTop: 16, marginBottom: 8}}>
+                            <FormLabel color="secondary" style={{fontSize: 14}}>
+                              Work experience requirement
+                            </FormLabel>
+                          </div>
+                          <Select
+                            labelId="workExperience"
+                            id="workExperience"
                             value={values.workExperience}
-                            defaultValue={values.workExperience}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            helperText={errors.workExperience && touched.workExperience && 'Job Title Required'}
-                            label="Work experience requirement"
-                          />
+                            label="workExperience"
+                            fullWidth={true}
+                            input={<BootstrapInput />}>
+                            <MenuItem value={10}>Req 1</MenuItem>
+                            <MenuItem value={20}>Req 2</MenuItem>
+                            <MenuItem value={30}>Req 3</MenuItem>
+                          </Select>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -304,29 +368,37 @@ export const CreateJob: React.FC = props => {
                         getOptionLabel={option => option}
                         defaultValue={['Wound Care']}
                         renderInput={params => (
-                          <Input {...params} variant="standard" label="Multiple values" placeholder="Favorites" />
+                          <Input
+                            {...params}
+                            variant="standard"
+                            label="Skills requirement/preferences"
+                            placeholder="Skills (ex: Gastrointestinal)"
+                          />
                         )}
                       />
                     </Grid>
 
-                    <Grid item style={{width: '100%'}}>
-                      <div style={{border: '0.5px solid #E1E1E1', marginTop: 40, marginBottom: 40}} />
+                    <Grid item style={{width: '100%', marginTop: 40, marginBottom: 40}}>
+                      <div style={{backgroundColor: '#E1E1E1', height: 1}} />
                     </Grid>
 
-                    <Grid item style={{width: '100%'}}>
+                    <Grid item style={{width: '100%', paddingBottom: 110}}>
                       <Grid container>
-                        <Grid item xs={12} md={6} justify="center" alignItems="center">
-                          <Typography>You currently have 4 active job listings</Typography>
+                        <Grid item xs={12} md={6} style={{display: 'flex', alignItems: 'center'}}>
+                          <Typography style={{color: '#7C7C7C'}}>You currently have 4 active job listings</Typography>
                         </Grid>
                         <Grid
                           item
                           xs={12}
                           md={6}
                           style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-                          <Button variant="outlined">
+                          <Button variant="outlined" style={{width: 70, height: 35}}>
                             <Typography variant="h4">Cancel</Typography>
                           </Button>
-                          <Button type="submit" disabled={isSubmitting} style={{backgroundColor: colors.blue}}>
+                          <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            style={{height: 35, width: 70, marginLeft: 20, backgroundColor: colors.blue}}>
                             {isSubmitting ? <CircularProgress /> : 'Save'}
                           </Button>
                         </Grid>

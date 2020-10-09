@@ -3,9 +3,10 @@ import { JobSchema } from "../models/job";
 
 const jobsRouter = express.Router();
 
-jobsRouter.get("/getJobs", async (req, res) => {
+jobsRouter.get("/getJobs", async (req, res, next) => {
   const jobs = await JobSchema.find();
   res.send(jobs);
+  next();
 });
 
 jobsRouter.post("/createJob", async (req, res) => {
