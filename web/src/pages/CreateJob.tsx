@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Grid, Typography, CircularProgress, InputAdornment, Select, MenuItem, FormLabel} from '@material-ui/core';
 
 import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
@@ -14,7 +15,7 @@ import {useAppDispatch, useAppState} from 'store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    createJobRoot: {
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -25,6 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(4),
       [theme.breakpoints.down('md')]: {
         padding: theme.spacing(4),
+      },
+    },
+    container: {
+      width: '70%',
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
       },
     },
     title: {
@@ -93,9 +100,17 @@ export const CreateJob: React.FC = props => {
     window.scrollTo(0, 0);
   };
 
+  const validationSchema = Yup.object().shape({
+    jobTitle: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required(),
+    description: Yup.string().min(2, 'Too Short!').max(1000, 'Too Long!').required(),
+    salaryStart: Yup.number().required(),
+    salaryEnd: Yup.number().required(),
+    location: Yup.string().required(),
+  });
+
   return (
-    <Grid container justify="center" alignItems="center" className={classes.root}>
-      <Grid item xs={12} md={10} lg={9}>
+    <Grid container justify="center" alignItems="center" className={classes.createJobRoot}>
+      <Grid item xs={12} md={10} lg={9} className={classes.container}>
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="h4" className={classes.title}>
@@ -110,11 +125,12 @@ export const CreateJob: React.FC = props => {
               setSubmitting(true);
               await onSubmit(values);
               setSubmitting(false);
-            }}>
+            }}
+            validationSchema={validationSchema}>
             {props => {
               const {values, touched, errors, isSubmitting, handleChange, handleBlur, handleSubmit} = props;
               return (
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style={{width: '100%'}}>
                   <Grid container component="div" alignItems="center" direction="column">
                     <Grid item style={{width: '100%'}}>
                       <Input
@@ -125,23 +141,23 @@ export const CreateJob: React.FC = props => {
                         defaultValue={values.jobTitle}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        helperText={errors.jobTitle && touched.jobTitle && 'Job Title Required'}
+                        helperText={errors.jobTitle && touched.jobTitle && 'This is a required field'}
                         placeholder="eg. Register Nurse"
-                        label="Job Title"
+                        label="Job Title*"
                       />
                     </Grid>
 
                     <Grid key="DESCRIPTION" item style={{width: '100%'}}>
                       <Input
-                        error={errors.jobTitle && touched.jobTitle}
+                        error={errors.description && touched.description}
                         fullWidth={true}
                         name="description"
                         value={values.description}
                         defaultValue={values.description}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        helperText={errors.description && touched.description && 'Job Title Required'}
-                        label="Description"
+                        helperText={errors.description && touched.description && 'This is a required field'}
+                        label="Description*"
                         rows={10}
                         multiline
                       />
@@ -158,8 +174,8 @@ export const CreateJob: React.FC = props => {
                             defaultValue={values.salaryStart}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            helperText={errors.salaryStart && touched.salaryStart && 'Job Title Required'}
-                            label="Salary Range"
+                            helperText={errors.salaryStart && touched.salaryStart && 'This is a required field'}
+                            label="Salary Range*"
                             type="number"
                             InputProps={{
                               startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -175,7 +191,7 @@ export const CreateJob: React.FC = props => {
                             defaultValue={values.salaryEnd}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            helperText={errors.salaryEnd && touched.salaryEnd && 'Job Title Required'}
+                            helperText={errors.salaryEnd && touched.salaryEnd && 'This is a required field'}
                             type="number"
                             InputProps={{
                               startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -190,9 +206,11 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="jobForm"
+                            name="jobForm"
                             id="jobForm"
                             value={values.jobForm}
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             label="Forms"
                             fullWidth={true}
                             input={<BootstrapInput />}>
@@ -209,6 +227,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="currency"
+                            name="currency"
                             id="currency"
                             value={values.currency}
                             onChange={handleChange}
@@ -232,7 +251,7 @@ export const CreateJob: React.FC = props => {
                         defaultValue={values.location}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        helperText={errors.location && touched.location && 'Job Title Required'}
+                        helperText={errors.location && touched.location && 'This is a required field'}
                         placeholder="eg. San Francisco"
                         label="Location(s)*"
                       />
@@ -248,6 +267,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="shiftHours"
+                            name="shiftHours"
                             id="shiftHours"
                             value={values.shiftHours}
                             onChange={handleChange}
@@ -274,6 +294,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="shiftSchedule"
+                            name="shiftSchedule"
                             id="shiftSchedule"
                             value={values.shiftSchedule}
                             onChange={handleChange}
@@ -293,6 +314,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="jobType"
+                            name="jobType"
                             id="jobType"
                             value={values.jobType}
                             onChange={handleChange}
@@ -317,6 +339,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="ratio"
+                            name="ratio"
                             id="ratio"
                             value={values.ratio}
                             onChange={handleChange}
@@ -336,6 +359,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="degreeRequirement"
+                            name="degreeRequirement"
                             id="degreeRequirement"
                             value={values.degreeRequirement}
                             onChange={handleChange}
@@ -355,6 +379,7 @@ export const CreateJob: React.FC = props => {
                           </div>
                           <Select
                             labelId="workExperience"
+                            name="workExperience"
                             id="workExperience"
                             value={values.workExperience}
                             onChange={handleChange}

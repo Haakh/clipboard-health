@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Grid} from '@material-ui/core';
 import {makeStyles, createStyles, Theme} from '@material-ui/core/styles';
 
@@ -70,8 +70,6 @@ export const SearchJob: React.FC = props => {
   const classes = useStyles(props);
 
   const {jobs} = useAppState();
-
-  useEffect(() => {});
 
   const renderJobs = (job: FormValues) => {
     return (

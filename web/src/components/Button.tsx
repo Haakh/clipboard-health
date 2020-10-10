@@ -11,4 +11,7 @@ export const Button = styled(MaterialButton)(({theme}) => ({
   '&:hover': {
     // background: theme.palette.primary.main,
   },
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(0, 10),
+  },
 }));

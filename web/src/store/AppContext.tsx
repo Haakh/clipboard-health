@@ -14,12 +14,28 @@ type CountProviderProps = {children: React.ReactNode};
 const AppStateContext = React.createContext<State | undefined>(undefined);
 const AppDispatchContext = React.createContext<Dispatch | undefined>(undefined);
 
+const getJobs = () => {
+  const data = localStorage.getItem('data');
+  if (data) {
+    const localData = JSON.parse(data);
+    const jobs = localData.jobs || [];
+    console.log('jobs', jobs);
+    return jobs;
+  }
+  return [];
+};
+
 function AppProvider({children}: CountProviderProps) {
-  const [state, setState] = React.useState({
-    jobs: [] as FormValues[],
+  const [state, setLocalState] = React.useState(() => ({
+    jobs: getJobs() as FormValues[],
     isAuthenticated: true,
     userToken: 'true',
-  });
+  }));
+
+  const setState = (data: any) => {
+    localStorage.setItem('data', JSON.stringify(data));
+    setLocalState(data);
+  };
 
   return (
     <AppStateContext.Provider value={state}>

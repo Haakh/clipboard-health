@@ -6,6 +6,10 @@ import InputBase from '@material-ui/core/InputBase';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginTop: theme.spacing(4),
+    '& .MuiFormHelperText-contained': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
   },
   inputRoot: {
     marginTop: theme.spacing(2),
@@ -55,6 +59,7 @@ export const BootstrapInput = withStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     border: '1px solid #ced4da',
     fontSize: 16,
+    paddingLeft: 10,
     height: 20,
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
